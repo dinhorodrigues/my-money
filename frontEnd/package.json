@@ -1,17 +1,16 @@
 {
   "name": "my-name-frontEnd",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "webpack-dev-server --progress --colors --inline --hot",
+    "dev": "webpack-dev-server --progress --colors --inline --hot",
     "production": "webpack --progress -p"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "admin-lte": "2.3.6",
+    "admin-lte": "^2.3.6",
     "axios": "0.15.3",
     "babel-core": "6.22.1",
     "babel-loader": "6.2.10",
@@ -38,5 +37,7 @@
     "style-loader": "0.13.1",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2"
-  }
+  },
+  "dependencies": {},
+  "description": ""
 }
