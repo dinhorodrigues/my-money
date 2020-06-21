@@ -1,7 +1,7 @@
 import React from 'react'
 import MenuItem from './menuItem'
 import MenuTree from './menuTree'
-import Footer from './footer'
+
 
 export default props =>(
     <ul className='sidebar-menu'>
@@ -9,7 +9,7 @@ export default props =>(
         <MenuTree label='Cadastro' icon='edit'>
              <MenuItem path='#billingCycles' label='Ciclos de Pagamento' icon='usd'/>
         </MenuTree>
-        <Footer/>
+        
 
     </ul>
 )
