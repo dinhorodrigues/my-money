@@ -10,13 +10,15 @@ import TabsHeader from '../common/tab/tabsHeader'
 import TabHeader from '../common/tab/tabHeader'
 import TabContet from  '../common/tab/tabContent'
 import { selectTab, showTabs } from '../common/tab/tabActions'
+import {init,createBilling, updateBilling, deleteBilling} from './billingCycleActions'
 
 import BillingCycleList from './billingCycleList'
+import BillingCycleForm from './billingCycleForm'
+
 
 class BillingCycle extends Component{
     componentWillMount(){
-        this.props.selectTab('tablist')
-        this.props.showTabs('tablist','tabcreate')
+          this.props.init()
        
     }
     render(){
@@ -39,9 +41,19 @@ class BillingCycle extends Component{
                            <TabContet id='tablist'>
                                <BillingCycleList/>                             
                            </TabContet>
-                           <TabContet id='tabcreate'><h1>Incluir</h1></TabContet>
-                           <TabContet id='tabUpdate'><h1>Alterar</h1></TabContet>
-                           <TabContet id='tabDelete'><h1>Excluir</h1></TabContet>
+                           <TabContet id='tabcreate'>
+                               <BillingCycleForm onSubmit={this.props.createBilling}/>
+                           </TabContet>
+
+                           <TabContet id='tabUpdate'>
+
+                               <BillingCycleForm onSubmit={this.props.updateBilling}/>
+                           </TabContet>
+                           
+                           <TabContet id='tabDelete'>
+                               <billingCycleForm onSubmit={this.props.deleteBilling}/>
+
+                           </TabContet>
                         </TabsContent>
                     </Tabs>
                 </Content>
@@ -50,5 +62,5 @@ class BillingCycle extends Component{
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({selectTab,showTabs},dispatch) 
+const mapDispatchToProps = dispatch => bindActionCreators({init,selectTab,showTabs,createBilling,updateBilling,deleteBilling},dispatch) 
 export default connect(null, mapDispatchToProps)(BillingCycle)
