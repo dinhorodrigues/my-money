@@ -21,10 +21,11 @@ export function createBilling(values){
 export function updateBilling(values){
     return botaoSubmit(values,'put')
 }
-
 export function deleteBilling(values){
-    return botaoSubmit(values,'delete')
+    return botaoSubmit(values, 'delete')
 }
+
+
 function botaoSubmit(values,method){
     
     return dispatch => {
@@ -45,6 +46,17 @@ export function showUpdate(billingCycle){
     return[
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
+     
+        initialize('billingCycleForm',billingCycle )/// passando o ciclo de pagamento, pegando da lista atraves do parametro
+
+    ]
+
+}
+export function showDelete(billingCycle){
+    return[
+        showTabs('tabDelete'),
+        selectTab('tabDelete'),
+     
         initialize('billingCycleForm',billingCycle )/// passando o ciclo de pagamento, pegando da lista atraves do parametro
 
     ]
