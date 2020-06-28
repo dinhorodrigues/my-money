@@ -4,8 +4,8 @@ module.exports = (req,res,next)=>{
     const bundle = res.locals.bundle
 
     if(bundle.errors){
-        const Aviso = parserErrors(bundle.errors)
-        res.status(500).json({Aviso})
+        const errors = parserErrors(bundle.errors)
+        res.status(500).json({errors})
      }else{
          next()
      }
