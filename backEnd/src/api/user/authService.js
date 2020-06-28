@@ -15,6 +15,8 @@ const sendErrorsFromDB = (res, dbErros) => {
     return res.status(400).json({ errors })
 }
 
+
+
 // criando metodo login
 const login = (req, res, next) => {
     const email = req.body.email || ''
@@ -26,7 +28,7 @@ const login = (req, res, next) => {
             return sendErrorsFromDB(res, err)
         } else if (user && bcrypt.compareSync(password, user.password)) {
             const token = jsonwebToken.sign(user, env.authSecret, {
-                expiresIn: '10 hours'
+                expiresIn: '1 day'
 
             })
             const { name, email } = user
@@ -36,6 +38,8 @@ const login = (req, res, next) => {
         }
     })
 }
+
+
 /// metodo validar tocken
 const validateToken = (req, res, next) => {
     const token = req.body.token || ''
@@ -44,13 +48,15 @@ const validateToken = (req, res, next) => {
     })
 }
 
+
 /// metodo para criar cadatro login
 const signup = (req, res, next) => {
     const name = res.body.name || ''
     const email = res.body.email || ''
     const password = res.body.password || ''
-    const confimPassword = res.body.confimPassword || ''
-///// metodo match varre a string e faz uma comparação 
+    const confirmPassword = res.body.confirm_Password || ''
+    ///// metodo match varre a string e faz uma comparação 
+    
     if (!email.match(emailRegex)) {
         return res.status(400).send({ errors: ['o e-mail informado está inválido'] })
     }
@@ -91,4 +97,4 @@ const signup = (req, res, next) => {
     })
 }
 
-module.exports = {login, signup,validateToken}
+module.exports = { login, signup, validateToken }

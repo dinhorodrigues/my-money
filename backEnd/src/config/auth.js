@@ -2,7 +2,7 @@ const jsonwebtoken = require('jsonwebtoken')
 const env = require('../.env')
 
 
-module.exports = (res, req, next) => {
+module.exports = (req, res, next) => {
     if (req.method == 'OPTIONS') {
         next()
     } else {
