@@ -3,8 +3,10 @@ import { toastr, reducer } from 'react-redux-toastr'
 import { reset as resetForm, initialize} from 'redux-form'
 import {showTabs, selectTab} from '../common/tab/tabActions'
 
+
 const URL = 'http://localhost:3001/api'
-const INITIAL_VALUES = {credits:[{}]}
+const INITIAL_VALUES = {credits:[{}], debts:[{}]}
+
 export function getList(){
 
     const request = axios.get(`${URL}/billingCycles `)
@@ -46,8 +48,8 @@ export function showUpdate(billingCycle){
     return[
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
-     
-        initialize('billingCycleForm',billingCycle )/// passando o ciclo de pagamento, pegando da lista atraves do parametro
+       
+        initialize('billingCycleForm',billingCycle)/// passando o ciclo de pagamento, pegando da lista atraves do parametro
 
     ]
 

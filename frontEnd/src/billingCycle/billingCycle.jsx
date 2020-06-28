@@ -9,7 +9,7 @@ import TabsContent from  '../common/tab/tabsContent'
 import TabsHeader from '../common/tab/tabsHeader'
 import TabHeader from '../common/tab/tabHeader'
 import TabContet from  '../common/tab/tabContent'
-import { selectTab, showTabs } from '../common/tab/tabActions'
+
 import {init,createBilling, updateBilling, deleteBilling} from './billingCycleActions'
 
 import BillingCycleList from './billingCycleList'
@@ -51,7 +51,7 @@ class BillingCycle extends Component{
                            <TabContet id='tabUpdate'>
 
                                <BillingCycleForm onSubmit={this.props.updateBilling}
-                               labelSubmit='Alterar' submitClass='info'/>
+                               labelSubmit='Alterar' submitClass='info' />
                            </TabContet>
                            
                            <TabContet id='tabDelete'>
