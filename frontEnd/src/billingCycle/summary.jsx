@@ -1,6 +1,5 @@
 import React, { Component } from  'react'
-import { connect } from 'react-redux'
-import { bindActionCreators} from 'redux'
+
 
 import Grid from '../common/layout/grid'
 import Row from '../common/layout/row'
