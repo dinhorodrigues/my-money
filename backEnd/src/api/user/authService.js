@@ -3,7 +3,7 @@ const jsonwebToken = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('./user')
 const env = require('../../.env')
-const user = require('./user')
+
 
 const emailRegex = /\S+@\S+\.\S+/
 const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
@@ -11,7 +11,7 @@ const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
 //// tratar erros no banco de dados
 const sendErrorsFromDB = (res, dbErros) => {
     const errors = []
-    _.forIn(dbErros.errors, error => errors.push(error.message))
+    _.forIn(dbErrors.errors, error => errors.push(error.message))
     return res.status(400).json({ errors })
 }
 
@@ -51,10 +51,10 @@ const validateToken = (req, res, next) => {
 
 /// metodo para criar cadatro login
 const signup = (req, res, next) => {
-    const name = res.body.name || ''
-    const email = res.body.email || ''
-    const password = res.body.password || ''
-    const confirmPassword = res.body.confirm_Password || ''
+    const name = req.body.name || ''
+    const email = req.body.email || ''
+    const password = req.body.password || ''
+    const confirmPassword = req.body.confirm_password || ''
     ///// metodo match varre a string e faz uma comparação 
     
     if (!email.match(emailRegex)) {
@@ -70,7 +70,7 @@ const signup = (req, res, next) => {
     /// comparação de senhas
     const salt = bcrypt.genSaltSync()
     const passwordHasch = bcrypt.hashSync(password, salt)//// aqui faz a comparação do password
-    if (!bcrypt.compareSync(confimPassword, passwordHasch)) {
+    if (!bcrypt.compareSync(confirmPassword, passwordHasch)) {
         return res.status(400).send({ errors: ['confirmação de senha não confere'] })
     }
 
@@ -84,13 +84,13 @@ const signup = (req, res, next) => {
 
             //// se tudo ok cria o novo usuario
         } else {
-            const newUser = new User({ name, email, password, passwordHasch })
+            const newUser = new User({ name, email, password: passwordHasch })
             newUser.save(err => {
                 if (err) {
                     return sendErrorsFromDB(res, err)
                 } else {
                     ///// depois de cadastrar ja chama direto o login
-                    login(res, req, next)
+                    login(req,res, next)
                 }
             })
         }
