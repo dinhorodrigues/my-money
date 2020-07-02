@@ -33,12 +33,12 @@ class BillingCycleList extends Component{
     render(){
         return (
             <div>
-                <table className='table'>
+                <table className='table table-striped'>
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Mês</th>
-                            <th >Ano</th>
+                            <th>Ano</th>
                             <th className='table-actions'>Ações</th>
                         </tr>
                     </thead>
