@@ -6,14 +6,14 @@ import Grid from '../layout/grid'
 export default props => (
     <Grid cols={props.cols}>
         <div className='form-group'>
-            <button  {...props.button}  type={props.typebutton} className={`btn btn-${props.classbutton}`} 
-            onClick={props.onClick}><i className={`fa fa-${props.icon}`}/>{props.description}
+            <button {...props.input} type={props.type} className={`btn btn-${props.classbutton}`}>
+              
+               <i className={`fa fa-${props.icon}`}></i> 
             </button>
 
         </div>
     </Grid>
-
-
-    
 )
+
+
 

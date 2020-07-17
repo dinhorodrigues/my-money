@@ -1,13 +1,69 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {  search, showUpdate, showDelete } from './peppleActions'
+import { reduxForm, Field } from 'redux-form'
 
 
-import React, {Component} from  'react'
+import '../common/template/custom.css'
 
-class PeppleList extends Component{
-    render(){
-        return(
-            <h1>EU Sou A lista</h1>
+
+
+
+
+class PeppleList extends Component {
+
+ 
+     renderRows() {
+
+
+        const list = this.props.list || []
+        return list.map(PessCliente => (
+            <tr key={PessCliente._id}>
+                <td>{PessCliente.code}</td>
+                <td>{PessCliente.name}</td>
+                <td>{PessCliente.dataNas}</td>
+                <td>
+                    <button className='btn btn-warning' onClick={() => this.props.showUpdate(PessCliente)}>
+                        <i className='fa fa-pencil'></i>
+                    </button>
+                    <button className='btn btn-danger' onClick={() => this.props.showDelete(PessCliente)}>
+                        <i className='fa fa-trash-o'></i>
+                    </button>
+                </td>
+            </tr>
+        ))
+    }
+
+
+    render() {
+        return (
+            <div>
+                 <div>
+
+                    <table className='table table-striped'>
+                        <thead>
+
+                            <tr>
+
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>Data Nascimento</th>
+                                <th className='table-actions'>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderRows()}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         )
     }
 }
 
-export default PeppleList
+PeppleList = reduxForm({ form: 'peppleList', destroyOnUnmount: false })(PeppleList)
+const mapStateToProps = state => ({ list: state.pepple.list })
+const mapDispatchToProps = dispatch => bindActionCreators({ showUpdate, showDelete,search}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(PeppleList)

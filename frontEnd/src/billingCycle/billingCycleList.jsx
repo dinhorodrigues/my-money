@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import  { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getList, showUpdate, showDelete} from   './billingCycleActions'
+import { getList, showUpdate, showDelete } from './billingCycleActions'
 
 
+class BillingCycleList extends Component {
 
-class BillingCycleList extends Component{
-    componentWillMount(){
-        this.props.getList()        
+    componentWillMount() {
+        this.props.getList()
     }
 
     renderRows() {
         const list = this.props.list || []
         return list.map(bilCycle => (/// map pecorre o array e retorna o array do mesmo tamanho ...lista de pagamentos
-            <tr key={bilCycle._id}> 
+            <tr key={bilCycle._id}>
                 <td>{bilCycle.name}</td>
                 <td>{bilCycle.month}</td>
                 <td>{bilCycle.year}</td>
@@ -30,7 +30,7 @@ class BillingCycleList extends Component{
     }
 
 
-    render(){
+    render() {
         return (
             <div>
                 <table className='table table-striped'>
@@ -48,10 +48,10 @@ class BillingCycleList extends Component{
                 </table>
             </div>
         )
-        
+
     }
 }
-const mapStateToProps = state => ({list: state.billingCycle.list})
-const mapDispatchToProps = dispatch => bindActionCreators({getList, showUpdate,showDelete},dispatch) 
-export default connect(mapStateToProps,mapDispatchToProps)(BillingCycleList)
+const mapStateToProps = state => ({ list: state.billingCycle.list })
+const mapDispatchToProps = dispatch => bindActionCreators({ getList, showUpdate, showDelete }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(BillingCycleList)
 

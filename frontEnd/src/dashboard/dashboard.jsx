@@ -22,7 +22,7 @@ class Dashboard extends Component{
         return(
         <div>
             <ContentHeader title='Dashboard' small='versão 1.0'/>
-            <Content>
+         
               <Row>
               <Valuebox cols='12 4' color='green' icon='bank'
                     value={`R$ ${credit}`} text='Total de Créditos'/>
@@ -34,7 +34,7 @@ class Dashboard extends Component{
                     value={`R$ ${credit - debt}`} text='Valor Consolidado'/>
                
               </Row>
-           </Content>
+          
         
         </div> 
         )
