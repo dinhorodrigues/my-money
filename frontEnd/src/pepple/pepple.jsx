@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Axios from 'axios'
 
-import { init, createPepple, updatePepple, deletePepple, search, changeName } from './peppleActions'
+
+import {
+    init, createPepple, updatePepple, deletePepple,
+    search, changeName
+} from './peppleActions'
 
 
 import TabHeader from '../common/tab/tabHeader'
@@ -15,7 +20,6 @@ import TabsContent from '../common/tab/tabsContent'
 
 import PeppleForm from './peppleForm'
 import PeppleList from './peppleList'
-import Axios from 'axios'
 
 
 const URL = 'http://localhost:3001/api'
@@ -24,24 +28,37 @@ const URL = 'http://localhost:3001/api'
 class Pepple extends Component {
     constructor(props) {
         super(props)
-
+        this.refresh()
+    
     }
 
 
     componentWillMount() {
         this.props.init()
         this.props.search()
+      
+    }
+  
+
+    refresh(name = '') {
+
+        const search = name ? `&name__regex=/${name}/` : ''
+        Axios.get(`${URL}/pepple?sort=+code${search}`)
+
+            .then(resp => this.setState({ ...this.state, list: resp.data }))
+
     }
 
-    refresh(name = ''){
-        const search = name ?`&name__regex=/${name}/`: ''
-        Axios.get(`${URL}?sort=+${search}`)
-        .then(resp => this.setState({...this.state, name, list: resp.data   }))
-
-    }
 
     render() {
-        const { name, search } = this.props
+        const { name, search} = this.props
+        const keyHandler =(e)=>{
+            if(e.key ==='Enter'){
+                this.props.search(name)
+            }
+        
+        }
+
 
         return (
             <div>
@@ -59,8 +76,8 @@ class Pepple extends Component {
                                 <form className='row'  >
                                     <div className='form-group col-md-6'>
                                         <label htmlFor="pesqui">Pesquisa</label>
-                                        <input id='pesquisa' onChange={this.props.changeName}
-                                            value={this.props.name} type="text" className="form-control" placeholder="Digite aqui a Pesquisa" />
+                                        <input id='pesquisa' onChange={this.props.changeName} onKeyUp={keyHandler}
+                                            value={name} type="text" className="form-control" placeholder="Digite aqui a Pesquisa" />
 
                                     </div>
                                     <div className="form-group col-md-2">
@@ -74,8 +91,8 @@ class Pepple extends Component {
 
                                     <div className="input-group-btn col-md-4">
                                         <h2>
-                                            <button className="btn btn-info" type='submit'
-                                                onClick={()=> search(name)} >
+                                            <button className="btn btn-info" type='button'
+                                                onClick={() => search(name)} >
                                                 <i className="fa fa-search"></i>Pesquisar</button>
                                         </h2>
 
@@ -110,5 +127,8 @@ class Pepple extends Component {
     }
 }
 const mapStateToProps = state => ({ name: state.pepple.name })
-const mapDispatchToProps = dispatch => bindActionCreators({ init, createPepple, updatePepple, deletePepple, search, changeName }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    init, createPepple,
+    updatePepple, deletePepple, search, changeName
+}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Pepple)

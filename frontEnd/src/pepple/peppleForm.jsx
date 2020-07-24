@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 
+
+
 import labelAndInput from '../common/form/labelAndInput'
 import selectedIput from '../common/form/selectedIput'
-import HistoricoCliente from    './historicoClienteList'
-
 import { init } from './peppleActions'
+
 
 
 
@@ -16,7 +18,6 @@ import { init } from './peppleActions'
 
 class PeppleForm extends Component {
     render() {
-
         const { handleSubmit,readOnly} = this.props
         return (
             <form role='form' onSubmit={handleSubmit} >
@@ -28,25 +29,22 @@ class PeppleForm extends Component {
                     <Field name='name' component={labelAndInput} label='Nome Completo' cols='12 3' className='form-control' placeholder='Nome'readOnly={readOnly} />
                     <Field name='cpf' component={labelAndInput} label='CPF' cols='12 2' className='form-control' placeholder='090.585.494-84'readOnly={readOnly} />
                     <Field name='rg' component={labelAndInput} label='RG' cols='12 2' className='form-control' placeholder='RG' readOnly={readOnly}/>
-                    <Field name='dataNas' component={labelAndInput} label='Data Nascimento' cols='12 2' className='form-control'placeholder='01/03/1990'readOnly={readOnly} />
-                    
-                   <Field name='sexo' component={selectedIput} label= 'Sexo'cols='12 2' readOnly={readOnly}/>
-                          
+                   
+                    <Field name='dataNas' type='date' component={labelAndInput}  label='Data Nascimento' cols='12 2' className='form-control'placeholder='01/03/1990'readOnly={readOnly} />
                   
+                    <Field name='sexo' component={selectedIput} label= 'Sexo'cols='12 2' readOnly={readOnly}/>
                     <Field name='celular' component={labelAndInput} label='Celular' cols='12 2' className='form-control' placeholder='Celular'  readOnly={readOnly}/>
                     <Field name='email' component={labelAndInput} label='E-mail' cols='12 3' className='form-control' placeholder='exemplo@exemplo.com'readOnly={readOnly} />
-                    <Field name='cep' component={labelAndInput} label='Cep' cols='12 2' className='form-control' placeholder='exemplo 58-800-00' readOnly={readOnly}/>
-                    <Field name='end' component={labelAndInput} label='Endereço' cols='12 3' className='form-control' placeholder='Av. das laranjeiras'readOnly={readOnly} />
+                    
+                    <Field name='cep' id='cep' component={labelAndInput} label='Cep' cols='12 2' className='form-control'
+                     placeholder='exemplo 58-800-00' readOnly={readOnly}/>
+                    <Field name='end' id='logradouro' component={labelAndInput} label='Endereço' cols='12 3' className='form-control' placeholder='Av. das laranjeiras'readOnly={readOnly} />
                     <Field name='numCasa' component={labelAndInput} label='Número' cols='12 2' className='form-control' placeholder='800' readOnly={readOnly}/>
                     <Field name='comple' component={labelAndInput} label='Complemento' cols='12 2' className='form-control'placeholder='Bloco / Apart.'readOnly={readOnly} />
-                    <Field name='bairro' component={labelAndInput} label='Bairro' cols='12 3' className='form-control' placeholder='Jardim Botânico' readOnly={readOnly}/>
-                    <Field name='cidade' component={labelAndInput} label='Cidade' cols='12 3' className='form-control' placeholder='João Pessoa-PB' readOnly={readOnly}/>
+                    <Field name='bairro' id='bairro' component={labelAndInput} label='Bairro' cols='12 3' className='form-control' placeholder='Jardim Botânico' readOnly={readOnly}/>
+                    <Field name='cidade' id='localidade' component={labelAndInput} label='Cidade' cols='12 3' className='form-control' placeholder='João Pessoa-PB' readOnly={readOnly}/>
                     <Field name='referen' component={labelAndInput} label='Ponto de referência' className='form-control' cols='12 4' placeholder='Ex. Padaria Vitória'readOnly={readOnly} />
-                 
-
-              
-                       
-                  
+                                 
              
 
                 </div>
@@ -60,6 +58,7 @@ class PeppleForm extends Component {
                     </i> Cancelar</button>
 
                 </div>
+             
 
             </form>
 
