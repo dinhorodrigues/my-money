@@ -12,6 +12,8 @@ import moment from 'moment'
 const URL = 'http://localhost:3001/api'
 
 const INITIAL_VALUE = { cliente: [{}] }
+
+
 export const changeName = event => ({
 
     type: 'NAME_CHANGED',
@@ -20,26 +22,19 @@ export const changeName = event => ({
 
 })
 
+
 export const search = (description = '') => {
-
-
-    const search = description ? `&name__regex=/${description}/` : ''
+    const search = description ? `&${tipo.value}__regex=/${description}/` : ''
     const request = axios.get(`${URL}/pepple?sort=+code${search}`)
-
-
+    
+    
     return {
         type: 'PESSOA_SEARCHED',
         payload: request
     }
 
 }
-export function keyHandler(e) {
 
-    if (e.key === 'Enter') {
-        e.shiftKey ? psearch() : console.log("Voce apertou enter")
-
-    }
-}
 
 
 
@@ -73,12 +68,12 @@ function botaoSubmit(values, method) {
 }
 export function showUpdate(pepple) {
 
-    var valuesForm = ({ ...pepple, dataNas: moment.utc(pepple.dataNas).local("BR").format("yyyy-MM-DD") })
+
 
     return [
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
-        initialize('peppleForm', valuesForm)
+        initialize('peppleForm', { ...pepple, dataNas: moment.utc(pepple.dataNas).local("BR").format("yyyy-MM-DD") })
     ]
 }
 
@@ -95,7 +90,6 @@ export function init() {
         showTabs('tablist', 'tabcreate'),
         selectTab('tablist'),
         search(),
-
         initialize('peppleForm', INITIAL_VALUE)
     ]
 

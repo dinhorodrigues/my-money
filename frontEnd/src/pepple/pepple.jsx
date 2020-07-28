@@ -5,8 +5,7 @@ import Axios from 'axios'
 
 
 import {
-    init, createPepple, updatePepple, deletePepple,
-    search, changeName
+    init, createPepple, updatePepple, deletePepple, search, changeName
 } from './peppleActions'
 
 
@@ -22,6 +21,8 @@ import PeppleForm from './peppleForm'
 import PeppleList from './peppleList'
 
 
+
+
 const URL = 'http://localhost:3001/api'
 
 
@@ -29,18 +30,18 @@ class Pepple extends Component {
     constructor(props) {
         super(props)
         this.refresh()
-    
+
     }
 
 
     componentWillMount() {
         this.props.init()
         this.props.search()
-      
-    }
-  
 
-    refresh(name = '') {
+    }
+
+
+    refresh(name = '',) {
 
         const search = name ? `&name__regex=/${name}/` : ''
         Axios.get(`${URL}/pepple?sort=+code${search}`)
@@ -51,14 +52,28 @@ class Pepple extends Component {
 
 
     render() {
-        const { name, search} = this.props
-        const keyHandler =(e)=>{
-            if(e.key ==='Enter'){
-                this.props.search(name)
-            }
-        
-        }
+        const { name, search } = this.props
 
+
+        const keyHandler = (e) => {
+            if (e.key === 'Enter') {
+                
+                    <div class="alert alert-warning" role="alert">
+                        This is a warning alert—check it out!
+                    </div>
+                this.props.search(name)
+
+            }
+
+        }
+///// desabilita o enter para submeter o formulario
+        $(document).ready(function () {
+            $('input').keypress(function (e) {
+                 var code = null;
+                 code = (e.keyCode ? e.keyCode : e.which);                
+                 return (code == 13) ? false : true;
+            });
+         })
 
         return (
             <div>
@@ -73,11 +88,23 @@ class Pepple extends Component {
                         </TabsHeader>
                         <TabsContent>
                             <TabContent id='tablist'>
+
                                 <form className='row'  >
-                                    <div className='form-group col-md-6'>
+
+
+                                    <div className='form-group col-md-4'>
                                         <label htmlFor="pesqui">Pesquisa</label>
                                         <input id='pesquisa' onChange={this.props.changeName} onKeyUp={keyHandler}
                                             value={name} type="text" className="form-control" placeholder="Digite aqui a Pesquisa" />
+                                    </div>
+                                    <div className='form-group col-md-2'>
+                                        <label htmlFor="tip">Tipo</label>
+                                        <select id='tipo' className='form-control'>
+                                            <option>Escolha...</option>
+                                            <option value="name">Nome</option>
+                                            <option value="end">Endereço</option>
+
+                                        </select>
 
                                     </div>
                                     <div className="form-group col-md-2">
@@ -92,11 +119,13 @@ class Pepple extends Component {
                                     <div className="input-group-btn col-md-4">
                                         <h2>
                                             <button className="btn btn-info" type='button'
-                                                onClick={() => search(name)} >
+                                                onClick={() => search(name)}  >
                                                 <i className="fa fa-search"></i>Pesquisar</button>
+                                                
                                         </h2>
 
                                     </div>
+
                                 </form>
                                 <PeppleList />
                             </TabContent>
