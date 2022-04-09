@@ -43,7 +43,7 @@
     "date-fns": "^2.15.0",
     "date-fns-tz": "^1.0.10",
     "ignore-case": "^0.1.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "react-via-cep": "^2.0.8"
   }
 }
